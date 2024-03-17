@@ -73,7 +73,6 @@ select:focus {
 }
 
 /* login */
-
 .flexCenterColW100 {
   width: 100%;
   flex-direction: column;
@@ -192,8 +191,11 @@ img.regisImg {
   height: 150px;
 }
 
+.login_bottom {
+  height: 100px;
+}
+
 .flexCenter.loginImg,
-.login_bottom,
 .flexCenter.regisImg,
 .regist_bottom {
   height: 200px;

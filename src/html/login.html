@@ -1,150 +1,48 @@
 <!-- @format -->
 
-<div
-  id="loginPage"
-  class="flexCenter pageInit">
+<div id="loginPage" class="flexCenter pageInit">
   <div class="flexCenterColW100">
-    <div style="height: 20px"></div>
-
     <div class="coverBoxInput">
       <input
-        id="mobileLogin"
+        id="uid_name"
         class="boxInput"
-        type="number"
-        placeholder="Phone"
+        type="text"
+        placeholder="Name"
         pattern="/^-?\d+\.?\d*$/"
-        onKeyPress="if(this.value.length==11) return false;" />
+        onKeyPress="if(this.value.length==11) return false;"
+      />
     </div>
 
     <div style="height: 20px"></div>
 
     <div class="coverBoxInput">
       <input
-        id="password"
+        id="remark"
         class="boxInput"
         type="password"
-        placeholder="Password" />
+        placeholder="Remark"
+      />
     </div>
   </div>
 
   <div class="login_bottom flexEndColW100">
-    <div
-      id="loginBtn"
-      class="btnComm">
-      Login
-    </div>
-
-    <div style="height: 10px"></div>
-
-    <div class="flexCenter spanUnderSubmit">
-      <div id="noAccount"></div>
-      <div
-        style="color: #457bff"
-        id="goRegisterBtn"></div>
-    </div>
+    <div id="loginBtn" class="btnComm">Login</div>
   </div>
 </div>
 
 <script>
-  var loginObj = new login()
-  loginObj.init()
+  var loginObj = new login();
+  loginObj.init();
 
   function login() {
-    var isAgree = false
     this.init = function () {
-      pageInit("loginPage")
-
-      $("#goRegisterBtn").click(function () {
-        pageShow("registerPage")
-      })
-
-      $("#checkBtnAgreementBtnLogin").click(function () {
-        if (isAgree) {
-          $("#checkBtnAgreementBtnLogin").css({"background-color": "#ffffff"})
-          $("#checkBtnAgreementBtnLogin").html("")
-          isAgree = false
-        } else {
-          //√）和叉号（×） - CodePen
-          $("#checkBtnAgreementBtnLogin").css({"background-color": "#cccccc"})
-          $("#checkBtnAgreementBtnLogin").html("√")
-          isAgree = true
-        }
-      })
-      console.log("isAgree:", isAgree)
+      pageInit("loginPage");
 
       $("#loginBtn").click(function () {
-        console.log("trueeeeeeeeeee")
-        callApp("ask_deviceId")
-
-        if (!isAgree) {
-          msgPageObj.show(NSLang("login.policy"))
-          return
-        }
-
-        if ($("#mobileLogin").val() == "" || $("#password").val() == "") {
-          msgPageObj.show(NSLang("login.password"))
-        }
-
-        if (
-          isAgree &&
-          $("#mobileLogin").val() != "" &&
-          $("#password").val() != ""
-        ) {
-          loaderObj.show()
-          setTimeout(function () {
-            loginFun()
-          }, 1000)
-        }
-      })
-
-      function loginFun() {
-        var mData = {
-          name: $("#mobileLogin").val(),
-          password: $("#password").val(),
-        }
-        console.log("mData:", mData)
-
-        if (deviceId) {
-          mData = {
-            name: $("#mobileLogin").val(),
-            password: $("#password").val(),
-          }
-        }
-
-        $.ajax({
-          type: "post",
-          url: API_SERVER + "/v1/auth/login",
-          data: JSON.stringify(mData),
-          contentType: "application/json",
-          dataType: "json",
-          async: true,
-          timeout: 100000,
-          beforeSend: function (xmlhttprequest) {},
-          success: function (data) {
-            loaderObj.unShow()
-
-            if (data.code == 0) {
-              // location.reload();
-              cleanInput()
-              var tokenObj = data.result
-              localStorage.setItem("token", JSON.stringify(tokenObj))
-              mainObj.checkIsLogin()
-            } else {
-              msgPageObj.show(getStatusCode(data.code))
-            }
-          },
-          error: function (xmlhttprequest, error) {
-            loaderObj.unShow()
-            msgPageObj.show(NSLang("sys.serverError"))
-          },
-          complete: function () {},
-        })
-
-        function cleanInput() {
-          $("#username").val("")
-          $("#password").val("")
-        }
-      }
-    }
+        pageShow("watchVdoPage");
+        pageShow("watchVdoHeader");
+        pageUnShow("loginPage");
+      });
+    };
   }
 </script>

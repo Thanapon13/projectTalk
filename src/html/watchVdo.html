@@ -3,7 +3,7 @@
 <style type="text/css">
   html,
   body {
-    background-color: #bebebe;
+    background-color: #8da9f5;
     color: #fff;
     text-align: center;
     margin: 0;
@@ -22,78 +22,64 @@
     font-size: 20px;
     font-weight: 700;
     background: transparent;
-  ">
+  "
+>
   <span id="watchVdoHeaderBody">watch Vdo</span>
 </div>
 
 <div
   class="menuPage bg-my"
   id="watchVdoPage"
-  style="position: absolute; overflow: hidden; background: transparent">
+  style="position: absolute; overflow: hidden; background: transparent"
+>
   <div id="scrollerMy">
     <!-- Body container -->
     <div>
-      <!-- Item Video -->
+      <!-- Item Top Video -->
       <div>
         URL:<input
           id="urlipt"
           type="text"
           placeholder="请输入流地址"
           style="width: 320px"
-          value="" />
-        <button
-          type="button"
-          id="play"
-          onclick="player()">
-          播放
-        </button>
+          value=""
+        />
+        <button type="button" id="play" onclick="player()">播放</button>
 
-        <button
-          type="button"
-          onclick="iosaudio()">
-          音频
-        </button>
+        <button type="button" onclick="iosaudio()">音频</button>
         <!-- <button type="button" onclick="iosplay()">Chrome或IOS触发播放</button> -->
-        <button
-          type="button"
-          onclick="stop()">
-          关闭
-        </button>
+        <button type="button" onclick="stop()">关闭</button>
         <!-- <button type="button" onclick="fullopen()">打开全屏</button> -->
         <!-- <button type="button" onclick="fullclose()">关闭全屏</button> -->
 
-        <!-- <div
-          id="container1"
-          width="640px"
-          height="400px">
-          　
-          <video
+        <div id="container1" width="640px" height="400px">
+          <!-- <video
             id="video"
             muted
             playsinline
             controls
-            style="width: 960px; height: 540px">
+            style="width: 960px; height: 540px"
+          >
             <source
               src="https://www.youtube.com/watch?v=Z2vzJjEeUfc"
-              type="video/mp4" />
-          </video>
-        </div> -->
+              type="video/mp4"
+            />
+          </video> -->
+        </div>
 
-        <div
-          id="container1"
-          width="100%"
-          height="400px">
+        <div id="container1" width="100%" height="400px">
           <iframe
             style="width: 100%; height: 540px; object-fit: cover"
             src="https://www.youtube.com/embed/Z2vzJjEeUfc"
             frameborder="0"
-            allowfullscreen></iframe>
+            allowfullscreen
+          ></iframe>
         </div>
       </div>
 
-      <!-- Item Content -->
+      <!-- Item Bottom Content -->
       <div>
-        <!-- row top -->
+        <!-- row content top -->
         <div>
           <div style="display: flex; border: 1px solid red">
             <p style="font-size: 16px">count wathcing :</p>
@@ -106,71 +92,71 @@
           </div>
         </div>
 
-        <!-- row bottom -->
+        <!-- row content bottom -->
         <div></div>
       </div>
     </div>
   </div>
 
   <script>
-    var homeObj = new watchVdo()
-    homeObj.init()
+    var watchVdoObj = new watchVdo();
+    watchVdoObj.init();
 
     function watchVdo() {
-      var myScroll
+      var myScroll;
 
       this.init = function () {
-        pageInit("watchVdoHeader")
+        pageInit("watchVdoHeader");
 
         $("#watchVdoHeader").css({
           width: "100%",
           height: headH,
           left: -1.0 * w,
           top: 0,
-        })
+        });
         $("#watchVdoPage").css({
           width: w,
           height: h - headH - menuH,
           position: "absolute",
           left: -1.0 * w,
           top: headH,
-        })
+        });
         myScroll = new IScroll("#watchVdoPage", {
           probeType: 1,
           mouseWheel: true,
-        })
-        loadList()
-      }
+        });
+        loadList();
+      };
       this.call = function () {
         $("#watchVdoPage").transition(
           {
             x: w,
           },
           0
-        )
+        );
         $("#watchVdoHeader").transition(
           {
             x: w,
           },
           0
-        )
-        myScroll.refresh()
-      }
+        );
+        myScroll.refresh();
+      };
 
       function loadList() {
         myScroll = new IScroll("#watchVdoPage", {
           probeType: 1,
           mouseWheel: true,
-        })
+        });
 
         myScroll.on("scroll", function () {
-          console.log("====>" + this.y)
-        })
+          console.log("====>" + this.y);
+        });
 
         myScroll.on("scrollEnd", function () {
-          console.log("====" + new Date())
-        })
-        myScroll.refresh()
+          console.log("====" + new Date());
+        });
+        myScroll.refresh();
       }
     }
   </script>
